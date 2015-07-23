@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -23,19 +22,7 @@ public class Controller {
 
 		try {
 			BufferedImage originImg = ImageIO.read(originFile);
-			BufferedImage outputImg = null;
-			int w = originImg.getWidth();
-			int h = originImg.getHeight();
-			outputImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_BGR);
-
-			int[][] img = controllor.convertToArr(originImg);
-			
-			for (int i = 0; i < img.length; i++) {
-				for (int j = 0; j < img[0].length; j++) {
-					//controllor.blurBound(img, i, j, 1);
-					outputImg.setRGB(j, i, controllor.blurBound(img, i, j, 0));
-				}
-			}
+			BufferedImage outputImg = controllor.blur(originImg, 1);
 
 			ImageIO.write(outputImg, "jpg", outputFile);
 		} catch (IOException e) {
@@ -49,6 +36,20 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	//blur
+	public BufferedImage blur(BufferedImage inputImage, int bound){
+		int[][] inputImageArr = convertToArr(inputImage);
+		int w = inputImage.getWidth();
+		int h = inputImage.getHeight();
+		BufferedImage outputImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_BGR);
+		for (int i = 0; i < inputImageArr.length; i++) {
+			for (int j = 0; j < inputImageArr[0].length; j++) {
+				outputImg.setRGB(j, i, blurBound(inputImageArr, i, j, bound));
+			}
+		}
+		return outputImg;
 	}
 
 	// 이 함수는 바운드 범위 안의 픽셀 평균을 리턴한다.
