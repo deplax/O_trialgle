@@ -3,6 +3,7 @@ package triangle;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.BufferedWriter;
+import java.io.Console;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,9 +23,14 @@ public class Controller {
 
 		try {
 			BufferedImage originImg = ImageIO.read(originFile);
-			BufferedImage outputImg = controllor.blur(originImg, 1);
-
+			long startTime = System.currentTimeMillis();
+			BufferedImage outputImg = controllor.blur(originImg, 25);
+			long endTime = System.currentTimeMillis();
+			System.out.println(endTime - startTime + " ms");	
+			
+			
 			ImageIO.write(outputImg, "jpg", outputFile);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
