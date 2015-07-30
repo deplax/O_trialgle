@@ -22,7 +22,9 @@ public class Controller {
 
 		try {
 			BufferedImage originImg = ImageIO.read(originFile);
-
+			final byte[] pixels = ((DataBufferByte) originImg.getRaster()
+					.getDataBuffer()).getData();
+			
 			// 버퍼 이미지에서 바이트 배열로 변환
 			// 블러
 			// 바운더리 필
@@ -34,26 +36,19 @@ public class Controller {
 			// BufferedImage -> byte[] ->
 			// 이 상테에서 가공이 가능해야 함.
 
-			final byte[] pixels = ((DataBufferByte) originImg.getRaster()
-					.getDataBuffer()).getData();
+
 
 			// ------------------------------------------------
 			
 			long startTime = System.currentTimeMillis();
-			BufferedImage outputImg = controllor.blur(originImg, 10);
+			
+			byte[] test = controllor.blur(pixels, originImg.getWidth(), originImg.getHeight(), 10);
+			BufferedImage outputImg = controllor.byteToImg(test, originImg.getWidth(), originImg.getHeight());
+			
 			long endTime = System.currentTimeMillis();
 			System.out.println(endTime - startTime + " ms");
 
-			long startTime2 = System.currentTimeMillis();
-			byte[] test = controllor.asdf(pixels, originImg.getWidth(), originImg.getHeight(), 10);
-			BufferedImage outputImg2 = controllor.byteToImg(test, originImg.getWidth(), originImg.getHeight());
-			long endTime2 = System.currentTimeMillis();
-			System.out.println(endTime2 - startTime2 + " ms");
-			
-			System.out.println("A : " + outputImg.getRGB(0, 0));
-			System.out.println("B : " + outputImg2.getRGB(0, 0));
-
-			ImageIO.write(outputImg2, "jpg", outputFile);
+			ImageIO.write(outputImg, "jpg", outputFile);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,28 +61,13 @@ public class Controller {
 		}
 	}
 
-	// blur
-	public BufferedImage blur(BufferedImage inputImage, int bound) {
-		int[][] inputImageArr = convertToArr(inputImage);
-		int w = inputImage.getWidth();
-		int h = inputImage.getHeight();
-		BufferedImage outputImg = new BufferedImage(w, h,
-				BufferedImage.TYPE_INT_BGR);
-		for (int i = 0; i < inputImageArr.length; i++) {
-			for (int j = 0; j < inputImageArr[0].length; j++) {
-				outputImg.setRGB(j, i, blurBound(inputImageArr, i, j, bound));
-			}
-		}
-		return outputImg;
-	}
-
-	public byte[] asdf(byte inputImgArr[], int w, int h, int bound) {
+	public byte[] blur(byte inputImgArr[], int w, int h, int bound) {
+		
 		// 먼저 효과를 적용할 배열을 생성
 		byte[] outputImgArr = new byte[inputImgArr.length];
 
 		// 이제 바운더리 계산해야 함.
 		// x, y 를 주면 r g b를 변수에 대입한다.
-
 		int x, y = 0;
 
 		for (int i = 0; i < inputImgArr.length; i = i + 3) {
@@ -153,54 +133,6 @@ public class Controller {
 				img.setRGB(c, r, pixel);
 			}
 		return img;
-	}
-
-	// 이 함수는 바운드 범위 안의 픽셀 평균을 리턴한다.
-	public int blurBound(int[][] img, int x, int y, int bound) {
-
-		int startX = 0;
-		int endX = 0;
-		int startY = 0;
-		int endY = 0;
-
-		if (x - bound < 0)
-			startX = Math.abs(x - bound);
-		if (x + bound > img.length - 1)
-			endX = (x + bound) - (img.length - 1);
-		if (y - bound < 0)
-			startY = Math.abs(y - bound);
-		if (y + bound > img[0].length - 1)
-			endY = (y + bound) - (img[0].length - 1);
-
-		int[] pixels = new int[(2 * bound - startX - endX + 1)
-				* (2 * bound - startY - endY + 1)];
-
-		for (int h = x - bound + startX, k = 0; h <= x + bound - endX; h++) {
-			for (int w = y - bound + startY; w <= y + bound - endY; w++) {
-				pixels[k] = img[h][w];
-				k++;
-			}
-		}
-		return pixelAverage(pixels);
-	}
-
-	public int pixelAverage(int[] pixels) {
-		int[] rgbAvg = new int[3];
-		for (int i = 0; i < pixels.length; i++) {
-			// color를 r g b로 나눠준다.
-			int[] rgb = colorToRGB(pixels[i]);
-			rgbAvg[0] += rgb[0];
-			rgbAvg[1] += rgb[1];
-			rgbAvg[2] += rgb[2];
-		}
-
-		// 나눈 r g b 의 각 평균을 낸다.
-		for (int i = 0; i < rgbAvg.length; i++) {
-			rgbAvg[i] /= pixels.length;
-		}
-
-		// r g b를 color로 변환한다.
-		return RGBToColor(rgbAvg);
 	}
 
 	public int[] colorToRGB(int color) {
