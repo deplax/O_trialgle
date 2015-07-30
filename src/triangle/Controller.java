@@ -100,11 +100,11 @@ public class Controller {
 			int endY = 0;
 
 			if (x - bound < 0)
-				startX = Math.abs(x - bound);
+				startX = bound - x;
 			if (x + bound > h - 1)
 				endX = (x + bound) - (h - 1);
 			if (y - bound < 0)
-				startY = Math.abs(y - bound);
+				startY = bound - y;
 			if (y + bound > w - 1)
 				endY = (y + bound) - (w - 1);
 
@@ -145,11 +145,11 @@ public class Controller {
 		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 		for (int r = 0; r < h; r++)
 			for (int c = 0; c < w; c++) {
-				int idx = r * w + c;
+				int idx = coordinate(r, c, w);
 				int pixel = 0b11111111000000000000000000000000;
-				pixel += (pixels[idx + 0] & 0xff) << 16; // R
+				pixel += (pixels[idx + 2] & 0xff) << 16; // R
 				pixel += (pixels[idx + 1] & 0xff) << 8; // G
-				pixel += (pixels[idx + 2] & 0xff) << 0; // B
+				pixel += (pixels[idx + 0] & 0xff) << 0; // B
 				img.setRGB(c, r, pixel);
 			}
 		return img;
