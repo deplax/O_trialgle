@@ -24,7 +24,7 @@ public class Controller {
 			BufferedImage originImg = ImageIO.read(originFile);
 			final byte[] pixels = ((DataBufferByte) originImg.getRaster()
 					.getDataBuffer()).getData();
-			
+
 			// 버퍼 이미지에서 바이트 배열로 변환
 			// 블러
 			// 바운더리 필
@@ -36,15 +36,18 @@ public class Controller {
 			// BufferedImage -> byte[] ->
 			// 이 상테에서 가공이 가능해야 함.
 
-
-
 			// ------------------------------------------------
-			
+
 			long startTime = System.currentTimeMillis();
-			
-			byte[] test = controllor.blur(pixels, originImg.getWidth(), originImg.getHeight(), 10);
-			BufferedImage outputImg = controllor.byteToImg(test, originImg.getWidth(), originImg.getHeight());
-			
+
+			int width = originImg.getWidth();
+			int height = originImg.getHeight();
+
+			byte[] outputTemp = controllor.blur(pixels, width, height, 10);
+			BufferedImage outputImg = controllor.byteToImg(outputTemp, width,
+					height);
+			controllor.boundaryFill(outputTemp, width, height, 10);
+
 			long endTime = System.currentTimeMillis();
 			System.out.println(endTime - startTime + " ms");
 
@@ -62,14 +65,13 @@ public class Controller {
 	}
 
 	public byte[] blur(byte inputImgArr[], int w, int h, int bound) {
-		
+
 		// 먼저 효과를 적용할 배열을 생성
 		byte[] outputImgArr = new byte[inputImgArr.length];
 
 		// 이제 바운더리 계산해야 함.
 		// x, y 를 주면 r g b를 변수에 대입한다.
 		int x, y = 0;
-
 		for (int i = 0; i < inputImgArr.length; i = i + 3) {
 			x = (i / 3) / w;
 			y = (i / 3) % w;
@@ -114,6 +116,78 @@ public class Controller {
 		}
 
 		return outputImgArr;
+	}
+
+	public void boundaryFill(byte[] inputImgArr, int w, int h, int threshold) {
+		// 검사한 블럭인지 확인할 마커배열을 생성.
+		boolean[][] checked = new boolean[h][w];
+
+		// 한 픽셀을 잡고 주변 탐색
+		// 임계값 이내일 경우 같은 색으로 간주
+		// 같은 색일 경우 같은 영역임을 표기
+
+		int x, y = 0;
+		// for (int i = 0; i < inputImgArr.length; i = i + 3) {
+		for (int i = 0; i < 3; i = i + 3) {
+			x = (i / 3) / w;
+			y = (i / 3) % w;
+
+			int b = inputImgArr[coordinate(x, y, w)];
+			int g = inputImgArr[coordinate(x, y, w) + 1];
+			int r = inputImgArr[coordinate(x, y, w) + 2];
+			fill(inputImgArr, checked, r, g, b, w, h, x, y, threshold);
+
+		}
+
+	}
+
+	// 인자가 많지만 속도를 위해 좌표를 통으로 넘기지 않고 r g b를 따로 넘긴다.
+	public void fill(byte[] inputImgArr, boolean[][] checked, int r, int g,
+			int b, int w, int h, int x, int y, int threshold) {
+		// 체크된 픽셀이 아니라면
+		if (checked[x][y] == false) {
+			int curb = inputImgArr[coordinate(x, y, w)];
+			int curg = inputImgArr[coordinate(x, y, w) + 1];
+			int curr = inputImgArr[coordinate(x, y, w) + 2];
+
+			// 비슷비슷한가?
+			if (checkSimilar(curr, curg, curb, r, g, b, threshold)) {
+				// 체크한다.
+				checked[x][y] = true;
+
+				// 색상을 채운다.
+				inputImgArr[coordinate(x, y, w)] = (byte) 0b11111111;
+				inputImgArr[coordinate(x, y, w) + 1] = (byte) 0b11111111;
+				inputImgArr[coordinate(x, y, w) + 2] = (byte) 0b11111111;
+
+				// 좌표를 배열에 저장.
+
+				// 이어서 탐색
+				if (y > 0)
+					fill(inputImgArr, checked, curr, curg, curb, w, h, x,
+							y - 1, threshold);
+				if (y < w - 1)
+					fill(inputImgArr, checked, curr, curg, curb, w, h, x,
+							y + 1, threshold);
+				if (x > 0)
+					fill(inputImgArr, checked, curr, curg, curb, w, h, x - 1,
+							y, threshold);
+				if (x < h - 1)
+					fill(inputImgArr, checked, curr, curg, curb, w, h, x + 1,
+							y, threshold);
+			}
+
+		}
+
+	}
+
+	public boolean checkSimilar(int curr, int curg, int curb, int r, int g,
+			int b, int threshold) {
+		if (curr < r + threshold && curr > r - threshold
+				&& curg < g + threshold && curg > g - threshold
+				&& curb < b + threshold && curb > b - threshold)
+			return true;
+		return false;
 	}
 
 	// x y 를 넣으면 일차원 바이트 배열의 위치를 리턴
