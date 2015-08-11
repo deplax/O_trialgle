@@ -44,9 +44,11 @@ public class Controller {
 			int height = originImg.getHeight();
 
 			byte[] outputTemp = controllor.blur(pixels, width, height, 10);
+			
+			controllor.boundaryFill(outputTemp, width, height, 2);
+			
 			BufferedImage outputImg = controllor.byteToImg(outputTemp, width,
 					height);
-			controllor.boundaryFill(outputTemp, width, height, 10);
 
 			long endTime = System.currentTimeMillis();
 			System.out.println(endTime - startTime + " ms");
