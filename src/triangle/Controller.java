@@ -36,15 +36,18 @@ public class Controller {
 			detector.setSourceImage(originImg);
 			detector.process();
 			BufferedImage edges = detector.getEdgesImage();
+			
+			
 
-			// canny edge detection을 수행한다.
-			// 무작위의 점을 찍는다.
+			
+			// TODO 무작위의 점을 찍는다.
+			// 
 			// 무작위 점을 리스트로 가진다.
 
 			long endTime = System.currentTimeMillis();
 			System.out.println(endTime - startTime + " ms");
 
-			ImageIO.write(edges, "jpg", outputFile);
+			ImageIO.write(edges, "png", outputFile);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -70,3 +73,14 @@ public class Controller {
 	}
 
 }
+
+// [참고 사이트]
+// CannyEdge
+// http://www.tomgibara.com/computer-vision/canny-edge-detector
+// http://carstart.tistory.com/188
+// DelaunayTrianulation
+// http://darkpgmr.tistory.com/96
+// RegionFilling
+// http://derek.dkit.ie/graphics/regionFilling/regionFilling.html
+// Triangulation
+// http://jonathanpuckey.com/projects/delaunay-raster/
