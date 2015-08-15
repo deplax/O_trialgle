@@ -15,4 +15,12 @@ public class ValueTest {
 		System.out.println(Integer.toBinaryString(test));
 
 	}
+	
+	@Test
+	public void hexToInt(){
+		int hexWhite = 0xffffffff;
+		System.out.println(hexWhite);
+		int hexBlack = 0x00000000;
+		System.out.println(hexBlack);
+	}
 }
