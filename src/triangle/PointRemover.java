@@ -18,7 +18,7 @@ public class PointRemover {
 		Iterator<Point> it = points.iterator();
 		while(it.hasNext()){
 			Point p = it.next();
-			if(!isWhite(p.getX(), p.getY(), r)){
+			if(!isWhite(p.x(), p.y(), r)){
 				it.remove();
 			}
 		}

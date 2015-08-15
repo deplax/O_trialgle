@@ -16,7 +16,7 @@ public class Controller {
 
 		Controller controllor = new Controller();
 
-		String originPath = "./img/test.jpg";
+		String originPath = "./img/IU.jpg";
 		String outputPath = "./img/test2.jpg";
 
 		File originFile = new File(originPath);
@@ -58,10 +58,13 @@ public class Controller {
 			// 삼각삼각
 			BufferedImage canvas = drawer.drawTriangle(pg.getPointList());
 			
+			// 칠하자.
+			drawer.fillTriangle();
+			
 			long endTime = System.currentTimeMillis();
 			System.out.println(endTime - startTime + " ms");
 
-			ImageIO.write(canvas, "png", outputFile);
+			ImageIO.write(edges, "png", outputFile);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
