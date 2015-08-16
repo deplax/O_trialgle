@@ -42,7 +42,7 @@ public class Controller {
 			int w = originImg.getWidth();
 			int h = originImg.getHeight();
 			// divide 제곱으로 적어야한다.
-			PointGenerator pg = new PointGenerator(w, h, 1800, 30);
+			PointGenerator pg = new PointGenerator(w, h, 900, 30);
 
 			// 그려보자.
 			Drawer drawer = new Drawer(edges);
@@ -59,6 +59,7 @@ public class Controller {
 			BufferedImage canvas = drawer.drawTriangle(pg.getPointList());
 			
 			// 칠하자.
+			drawer.setOrigin(originImg);
 			drawer.fillTriangle();
 			
 			long endTime = System.currentTimeMillis();
@@ -104,3 +105,4 @@ public class Controller {
 // http://jonathanpuckey.com/projects/delaunay-raster/
 // TriangleFill
 // http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html
+// http://www-users.mat.uni.torun.pl/~wrona/3d_tutor/tri_fillers.html

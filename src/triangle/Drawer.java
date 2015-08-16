@@ -18,14 +18,20 @@ public class Drawer {
 	// 이미지 버퍼를 만든다.
 	// 이미지 버퍼에 포인트들을 그린다.
 	// 이미지 버퍼 리턴
-	List<Point> points;
+	//List<Point> points;
+	List<Integer> pixels = new ArrayList<>();
 	BufferedImage bi;
+	BufferedImage origin;
 	Iterator<Triangle_dt> triangles;
 
 	public Drawer(BufferedImage bi) {
 		this.bi = bi;
 	}
 
+	public void setOrigin(BufferedImage origin){
+		this.origin = origin;
+	}
+	
 	public void drawPoints(List<Point> points) {
 		for (Point point : points) {
 			pointFill(point.x(), point.y(), Color.RED);
@@ -69,7 +75,7 @@ public class Drawer {
 		while (iter.hasNext()) {
 			Triangle_dt triangle = iter.next();
 			if (triangle.p1() != null && triangle.p2() != null && triangle.p3() != null) {
-			cnt++;
+				cnt++;
 				Point_dt p1 = triangle.p1();
 				Point_dt p2 = triangle.p2();
 				Point_dt p3 = triangle.p3();
@@ -84,41 +90,67 @@ public class Drawer {
 	}
 
 	public void fillTriangle() {
-//		Graphics2D g = bi.createGraphics();
 		int cnt = 0;
+		Graphics2D g = bi.createGraphics();
 		while (triangles.hasNext()) {
 			Triangle_dt triangle = triangles.next();
 			if (triangle.p1() != null && triangle.p2() != null && triangle.p3() != null) {
 				cnt++;
-				List<Point_dt> list = sortPointY(triangle);
-				Point v1 = new Point((int) list.get(0).x(), (int) list.get(0).y());
-				Point v2 = new Point((int) list.get(1).x(), (int) list.get(1).y());
-				Point v3 = new Point((int) list.get(2).x(), (int) list.get(2).y());
-
-//				g = bi.createGraphics();
-//				g.fillPolygon(new int[]{v1.x(), v2.x(), v3.x()}, new int[] {v1.y(),v2.y(),v3.y()}, 3);
-				
-				if (v2.y() == v3.y()) {
-					fillBottomFlatTriangle(v1, v2, v3);
-				}
-				else if (v1.y() == v2.y()) {
-					fillTopFlatTriangle(v1, v2, v3);
-				} else {
-
-					Point v4 = new Point(
-							(int) (v1.x() + ((float) (v2.y() - v1.y()) / (float) (v3.y() - v1.y()))
-									* (v3.x() - v1.x())), v2.y());
-					fillBottomFlatTriangle(v1, v2, v4);
-					fillTopFlatTriangle(v2, v4, v3);
-					
-					System.out.println("x1 : " + v1.x() + ", y1 : " + v1.y());
-					System.out.println("x2 : " + v2.x() + ", y2 : " + v2.y());
-					System.out.println("x3 : " + v3.x() + ", y3 : " + v3.y());
-					System.out.println("x4 : " + v4.x() + ", y4 : " + v4.y());
-				}
+				g.setColor(new Color(TriangleAvgColor(triangle)));
+				int[] xs = {(int)triangle.p1().x(), (int)triangle.p2().x(), (int)triangle.p3().x()};
+				int[] ys = {(int)triangle.p1().y(), (int)triangle.p2().y(), (int)triangle.p3().y()};
+				g.fillPolygon(xs, ys, 3);
 			}
 		}
 		System.out.println("Triangle : " + cnt);
+	}
+
+	public int TriangleAvgColor(Triangle_dt triangle) {
+		List<Point_dt> list = sortPointY(triangle);
+		Point v1 = new Point((int) list.get(0).x(), (int) list.get(0).y());
+		Point v2 = new Point((int) list.get(1).x(), (int) list.get(1).y());
+		Point v3 = new Point((int) list.get(2).x(), (int) list.get(2).y());
+
+		if (v2.y() == v3.y()) {
+			fillBottomFlatTriangle(v1, v2, v3);
+		} else if (v1.y() == v2.y()) {
+			fillTopFlatTriangle(v1, v2, v3);
+		} else {
+
+			Point v4 = new Point(
+					(int) (v1.x() + ((float) (v2.y() - v1.y()) / (float) (v3.y() - v1.y()))
+							* (v3.x() - v1.x())), v2.y());
+			fillBottomFlatTriangle(v1, v2, v4);
+			fillTopFlatTriangle(v2, v4, v3);
+		}
+		
+		return avgPixels();
+
+	}
+	
+	public int avgPixels(){
+		int r = 0;
+		int g = 0;
+		int b = 0;
+		for (Integer pixel : pixels) {
+			r += (0b00000000111111110000000000000000 & pixel) >> 16; // R
+			g += (0b00000000000000001111111100000000 & pixel) >> 8; // G
+			b += (0b00000000000000000000000011111111 & pixel) >> 0; // B
+		}
+		int err = 0;
+		if(pixels.size() == 0)
+			err = 1;
+		r = r / (pixels.size() + err);
+		g = g / (pixels.size() + err);
+		b = b / (pixels.size() + err);
+		
+		int pixel = 0b11111111000000000000000000000000;
+		pixel += (r & 0xff) << 16; // R
+		pixel += (g & 0xff) << 8; // G
+		pixel += (b & 0xff) << 0; // B
+		
+		pixels.clear();
+		return pixel;
 	}
 
 	public List<Point_dt> sortPointY(Triangle_dt t) {
@@ -127,20 +159,21 @@ public class Drawer {
 		list.add(t.p2());
 		list.add(t.p3());
 		Collections.sort(list, new NoAscCompare());
-		
+
 		for (Point_dt point_dt : list) {
 			System.out.println("x: " + point_dt.x() + " y: " + point_dt.y());
 		}
-		
+		System.out.println();
+
 		return list;
 	}
 
 	public void fillBottomFlatTriangle(Point v1, Point v2, Point v3) {
-		if(v2.x() > v3.x())
+		if (v2.x() > v3.x())
 			swapPoint(v2, v3);
-		
-		float invslope1 = (float)(v2.x() - v1.x()) / (float)(v2.y() - v1.y());
-		float invslope2 = (float)(v3.x() - v1.x()) / (float)(v3.y() - v1.y());
+
+		float invslope1 = (float) (v2.x() - v1.x()) / (float) (v2.y() - v1.y());
+		float invslope2 = (float) (v3.x() - v1.x()) / (float) (v3.y() - v1.y());
 
 		float curx1 = v1.x();
 		float curx2 = v1.x();
@@ -153,11 +186,11 @@ public class Drawer {
 	}
 
 	public void fillTopFlatTriangle(Point v1, Point v2, Point v3) {
-		if(v1.x() > v2.x())
+		if (v1.x() > v2.x())
 			swapPoint(v1, v2);
-		
-		float invslope1 = (float)(v3.x() - v1.x()) / (float)(v3.y() - v1.y());
-		float invslope2 = (float)(v3.x() - v2.x()) / (float)(v3.y() - v2.y());
+
+		float invslope1 = (float) (v3.x() - v1.x()) / (float) (v3.y() - v1.y());
+		float invslope2 = (float) (v3.x() - v2.x()) / (float) (v3.y() - v2.y());
 
 		float curx1 = v3.x();
 		float curx2 = v3.x();
@@ -168,8 +201,8 @@ public class Drawer {
 			drawLine((int) curx1, (int) curx2, scanlineY);
 		}
 	}
-	
-	public void swapPoint(Point a, Point b){
+
+	public void swapPoint(Point a, Point b) {
 		Point temp = new Point(a.x(), a.y());
 		a.setX(b.x());
 		a.setY(b.y());
@@ -179,7 +212,8 @@ public class Drawer {
 
 	public void drawLine(int sx, int ex, int sy) {
 		for (int i = 0; i < ex - sx; i++) {
-			bi.setRGB(sx + i, sy, Color.cyan.getRGB());
+			//bi.setRGB(sx + i, sy, Color.cyan.getRGB());
+			pixels.add(origin.getRGB(sx + i, sy)); 
 		}
 	}
 }

@@ -26,9 +26,9 @@ public class DrawerTest {
 
 		BufferedImage bi = new BufferedImage(800, 800, BufferedImage.TYPE_INT_ARGB);
 		Drawer drawer = new Drawer(bi);
-		Point v1 = new Point(100, 100);
-		Point v2 = new Point(200, 200);
-		Point v3 = new Point(150, 300);
+		Point v1 = new Point(557, 233);
+		Point v2 = new Point(564, 264);
+		Point v3 = new Point(628, 531);
 		Point v4 = new Point(
 				(int) (v1.x() + ((float) (v2.y() - v1.y()) / (float) (v3.y() - v1.y()))
 						* (v3.x() - v1.x())), v2.y());
