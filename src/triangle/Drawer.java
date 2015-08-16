@@ -68,8 +68,8 @@ public class Drawer {
 		int cnt = 0;
 		while (iter.hasNext()) {
 			Triangle_dt triangle = iter.next();
-			cnt++;
 			if (triangle.p1() != null && triangle.p2() != null && triangle.p3() != null) {
+			cnt++;
 				Point_dt p1 = triangle.p1();
 				Point_dt p2 = triangle.p2();
 				Point_dt p3 = triangle.p3();
@@ -84,82 +84,41 @@ public class Drawer {
 	}
 
 	public void fillTriangle() {
-		// *** begin triangle filler ***
-		// A.y<=B.y<=C.y
-		//
-		// if (B.y-A.y > 0) dx1=(B.x-A.x)/(B.y-A.y) else dx1=0;
-		// if (C.y-A.y > 0) dx2=(C.x-A.x)/(C.y-A.y) else dx2=0;
-		// if (C.y-B.y > 0) dx3=(C.x-B.x)/(C.y-B.y) else dx3=0;
-		//
-		// S=E=A;
-		// if(dx1 > dx2) {
-		// for(;S.y<=B.y;S.y++,E.y++,S.x+=dx2,E.x+=dx1)
-		// horizline(S.x,E.x,S.y,color);
-		// E=B;
-		// for(;S.y<=C.y;S.y++,E.y++,S.x+=dx2,E.x+=dx3)
-		// horizline(S.x,E.x,S.y,color);
-		// } else {
-		// for(;S.y<=B.y;S.y++,E.y++,S.x+=dx1,E.x+=dx2)
-		// horizline(S.x,E.x,S.y,color);
-		// S=B;
-		// for(;S.y<=C.y;S.y++,E.y++,S.x+=dx3,E.x+=dx2)
-		// horizline(S.x,E.x,S.y,color);
-		// }
-		//
-		// *** end triangle filler ***
+//		Graphics2D g = bi.createGraphics();
+		int cnt = 0;
 		while (triangles.hasNext()) {
 			Triangle_dt triangle = triangles.next();
 			if (triangle.p1() != null && triangle.p2() != null && triangle.p3() != null) {
+				cnt++;
 				List<Point_dt> list = sortPointY(triangle);
-				Point a = new Point((int) list.get(0).x(), (int) list.get(0).y());
-				Point b = new Point((int) list.get(1).x(), (int) list.get(1).y());
-				Point c = new Point((int) list.get(2).x(), (int) list.get(2).y());
+				Point v1 = new Point((int) list.get(0).x(), (int) list.get(0).y());
+				Point v2 = new Point((int) list.get(1).x(), (int) list.get(1).y());
+				Point v3 = new Point((int) list.get(2).x(), (int) list.get(2).y());
 
-				int dx1, dx2, dx3;
-				if (b.y() - a.y() > 0)
-					dx1 = (b.x() - a.x()) / (b.y() - a.y());
-				else
-					dx1 = 0;
-				if (c.y() - a.y() > 0)
-					dx2 = (c.x() - a.x()) / (c.y() - a.y());
-				else
-					dx2 = 0;
-				if (c.y() - b.y() > 0)
-					dx3 = (c.x() - b.x()) / (c.y() - b.y());
-				else
-					dx3 = 0;
-				Point s = new Point(a.x(), a.y());
-				Point e = new Point(a.x(), a.y());
-				if (dx1 > dx2) {
-					for (; s.y() <= b.y(); s.setY(s.y() + 1), e.setY(s.y() + 1), s
-							.setX(s.x() + dx2), e.setX(e.x() + dx1))
-						horizline(s.x(), e.x(), s.y());
-					e.setX(b.x());
-					e.setY(b.y());
-					for (; s.y() <= c.y(); s.setY(s.y() + 1), e.setY(s.y() + 1), s
-							.setX(s.x() + dx2), e.setX(e.x() + dx3))
-						horizline(s.x(), e.x(), s.y());
-				} else {
-					for (; s.y() <= b.y(); s.setY(s.y() + 1), e.setY(s.y() + 1), s
-							.setX(s.x() + dx1), e.setX(e.x() + dx2))
-						horizline(s.x(), e.x(), s.y());
-					s.setX(b.x());
-					s.setY(b.y());
-					for (; s.y() <= c.y(); s.setY(s.y() + 1), e.setY(s.y() + 1), s
-							.setX(s.x() + dx3), e.setX(e.x() + dx2))
-						horizline(s.x(), e.x(), s.y());
+//				g = bi.createGraphics();
+//				g.fillPolygon(new int[]{v1.x(), v2.x(), v3.x()}, new int[] {v1.y(),v2.y(),v3.y()}, 3);
+				
+				if (v2.y() == v3.y()) {
+					fillBottomFlatTriangle(v1, v2, v3);
 				}
+				else if (v1.y() == v2.y()) {
+					fillTopFlatTriangle(v1, v2, v3);
+				} else {
 
+					Point v4 = new Point(
+							(int) (v1.x() + ((float) (v2.y() - v1.y()) / (float) (v3.y() - v1.y()))
+									* (v3.x() - v1.x())), v2.y());
+					fillBottomFlatTriangle(v1, v2, v4);
+					fillTopFlatTriangle(v2, v4, v3);
+					
+					System.out.println("x1 : " + v1.x() + ", y1 : " + v1.y());
+					System.out.println("x2 : " + v2.x() + ", y2 : " + v2.y());
+					System.out.println("x3 : " + v3.x() + ", y3 : " + v3.y());
+					System.out.println("x4 : " + v4.x() + ", y4 : " + v4.y());
+				}
 			}
-			//break;
 		}
-
-	}
-
-	public void horizline(int sx, int ex, int sy) {
-		for (int i = 0; i < ex - sx; i++) {
-			bi.setRGB(sx + i, sy, Color.cyan.getRGB());			
-		}
+		System.out.println("Triangle : " + cnt);
 	}
 
 	public List<Point_dt> sortPointY(Triangle_dt t) {
@@ -168,12 +127,59 @@ public class Drawer {
 		list.add(t.p2());
 		list.add(t.p3());
 		Collections.sort(list, new NoAscCompare());
+		
+		for (Point_dt point_dt : list) {
+			System.out.println("x: " + point_dt.x() + " y: " + point_dt.y());
+		}
+		
 		return list;
-
-		// for (Point_dt p : list) {
-		// System.out.println(p.y());
-		// }
-		// System.out.println();
 	}
 
+	public void fillBottomFlatTriangle(Point v1, Point v2, Point v3) {
+		if(v2.x() > v3.x())
+			swapPoint(v2, v3);
+		
+		float invslope1 = (float)(v2.x() - v1.x()) / (float)(v2.y() - v1.y());
+		float invslope2 = (float)(v3.x() - v1.x()) / (float)(v3.y() - v1.y());
+
+		float curx1 = v1.x();
+		float curx2 = v1.x();
+
+		for (int scanlineY = v1.y(); scanlineY <= v2.y(); scanlineY++) {
+			drawLine((int) curx1, (int) curx2, scanlineY);
+			curx1 += invslope1;
+			curx2 += invslope2;
+		}
+	}
+
+	public void fillTopFlatTriangle(Point v1, Point v2, Point v3) {
+		if(v1.x() > v2.x())
+			swapPoint(v1, v2);
+		
+		float invslope1 = (float)(v3.x() - v1.x()) / (float)(v3.y() - v1.y());
+		float invslope2 = (float)(v3.x() - v2.x()) / (float)(v3.y() - v2.y());
+
+		float curx1 = v3.x();
+		float curx2 = v3.x();
+
+		for (int scanlineY = v3.y(); scanlineY > v1.y(); scanlineY--) {
+			curx1 -= invslope1;
+			curx2 -= invslope2;
+			drawLine((int) curx1, (int) curx2, scanlineY);
+		}
+	}
+	
+	public void swapPoint(Point a, Point b){
+		Point temp = new Point(a.x(), a.y());
+		a.setX(b.x());
+		a.setY(b.y());
+		b.setX(temp.x());
+		b.setY(temp.y());
+	}
+
+	public void drawLine(int sx, int ex, int sy) {
+		for (int i = 0; i < ex - sx; i++) {
+			bi.setRGB(sx + i, sy, Color.cyan.getRGB());
+		}
+	}
 }

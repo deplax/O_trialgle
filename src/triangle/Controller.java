@@ -64,7 +64,10 @@ public class Controller {
 			long endTime = System.currentTimeMillis();
 			System.out.println(endTime - startTime + " ms");
 
+			String outputPath2 = "./img/test3.jpg";
+			File outputFile2 = new File(outputPath2);
 			ImageIO.write(edges, "png", outputFile);
+			ImageIO.write(canvas, "png", outputFile2);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -99,3 +102,5 @@ public class Controller {
 // http://derek.dkit.ie/graphics/regionFilling/regionFilling.html
 // Triangulation
 // http://jonathanpuckey.com/projects/delaunay-raster/
+// TriangleFill
+// http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html
