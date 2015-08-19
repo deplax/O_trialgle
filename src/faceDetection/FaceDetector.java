@@ -19,10 +19,6 @@ public class FaceDetector {
 
 		CascadeClassifier faceDetector = new CascadeClassifier(
 				"/Users/Deplax/Downloads/opencv-3.0.0/data/haarcascades/haarcascade_frontalface_alt.xml");
-		// System.out.println(f);
-
-		// CascadeClassifier faceDetector = new
-		// CascadeClassifier(FaceDetector.class.getResource("haarcascade_frontalface_alt.xml").getPath());
 		Mat image = Imgcodecs.imread("./img/IU.jpg");
 
 		MatOfRect faceDetections = new MatOfRect();

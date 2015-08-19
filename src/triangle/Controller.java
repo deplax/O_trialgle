@@ -16,7 +16,7 @@ public class Controller {
 
 		Controller controllor = new Controller();
 
-		String originPath = "./img/IU.jpg";
+		String originPath = "./img/002.jpg";
 		String outputPath = "./img/test2.jpg";
 
 		File originFile = new File(originPath);
@@ -33,7 +33,7 @@ public class Controller {
 			CannyEdgeDetector detector = new CannyEdgeDetector();
 			// adjust its parameters as desired
 			detector.setLowThreshold(1f);
-			detector.setHighThreshold(2f);
+			detector.setHighThreshold(3f);
 			detector.setSourceImage(originImg);
 			detector.process();
 			BufferedImage edges = detector.getEdgesImage();
@@ -60,14 +60,14 @@ public class Controller {
 			
 			// 칠하자.
 			drawer.setOrigin(originImg);
-			drawer.fillTriangle();
+			BufferedImage result = drawer.fillTriangle();
 			
 			long endTime = System.currentTimeMillis();
 			System.out.println(endTime - startTime + " ms");
 
 			String outputPath2 = "./img/test3.jpg";
 			File outputFile2 = new File(outputPath2);
-			ImageIO.write(edges, "png", outputFile);
+			ImageIO.write(result, "png", outputFile);
 			ImageIO.write(canvas, "png", outputFile2);
 
 		} catch (IOException e) {

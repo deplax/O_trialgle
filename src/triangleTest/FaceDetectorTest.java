@@ -11,7 +11,6 @@ public class FaceDetectorTest {
 
 	@Test
 	public void faceDetectTest() {
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		FaceDetector f = new FaceDetector();
 //		Mat image = Imgcodecs.imread("./img/IU.jpg");
 //		image = f.detectFace(image);

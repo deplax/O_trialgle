@@ -2,6 +2,7 @@ package triangle;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,7 +71,7 @@ public class Drawer {
 		BufferedImage canvas = new BufferedImage(bi.getWidth(), bi.getHeight(), bi.getType());
 		Graphics2D g = canvas.createGraphics();
 		g.setColor(Color.BLACK);
-
+		g.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		int cnt = 0;
 		while (iter.hasNext()) {
 			Triangle_dt triangle = iter.next();
@@ -89,9 +90,15 @@ public class Drawer {
 		return canvas;
 	}
 
-	public void fillTriangle() {
+	public BufferedImage fillTriangle() {
+		BufferedImage canvas = new BufferedImage(bi.getWidth(), bi.getHeight(), bi.getType());
 		int cnt = 0;
-		Graphics2D g = bi.createGraphics();
+		Graphics2D g = canvas.createGraphics();
+		g.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+		g.addRenderingHints(new RenderingHints(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY));
+		g.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
+		g.addRenderingHints(new RenderingHints(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE));
+		//g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		while (triangles.hasNext()) {
 			Triangle_dt triangle = triangles.next();
 			if (triangle.p1() != null && triangle.p2() != null && triangle.p3() != null) {
@@ -99,10 +106,15 @@ public class Drawer {
 				g.setColor(new Color(TriangleAvgColor(triangle)));
 				int[] xs = {(int)triangle.p1().x(), (int)triangle.p2().x(), (int)triangle.p3().x()};
 				int[] ys = {(int)triangle.p1().y(), (int)triangle.p2().y(), (int)triangle.p3().y()};
+//				g.drawLine((int)triangle.p1().x(), (int)triangle.p1().y(), (int)triangle.p2().x(), (int)triangle.p2().y());
+//				g.drawLine((int)triangle.p2().x(), (int)triangle.p2().y(), (int)triangle.p3().x(), (int)triangle.p3().y());
+//				g.drawLine((int)triangle.p3().x(), (int)triangle.p3().y(), (int)triangle.p1().x(), (int)triangle.p1().y());
+				g.fillPolygon(xs, ys, 3);
 				g.fillPolygon(xs, ys, 3);
 			}
 		}
 		System.out.println("Triangle : " + cnt);
+		return canvas;
 	}
 
 	public int TriangleAvgColor(Triangle_dt triangle) {
