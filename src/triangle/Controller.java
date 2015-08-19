@@ -37,13 +37,16 @@ public class Controller {
 			detector.setSourceImage(originImg);
 			detector.process();
 			BufferedImage edges = detector.getEdgesImage();
-
+			
 			// 랜덤하게 포인트를 찍는다.
 			int w = originImg.getWidth();
 			int h = originImg.getHeight();
 			// divide 제곱으로 적어야한다.
 			PointGenerator pg = new PointGenerator(w, h, 1800, 30);
 
+			// 얼굴 위치를 디텍트 한다.
+			// 그 위치에만 더 많은 점을 찍는다.
+			
 			// 그려보자.
 			Drawer drawer = new Drawer(edges);
 			drawer.drawPoints(pg.getPointList());
