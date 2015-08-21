@@ -120,20 +120,15 @@ public class Drawer {
 					&& triangle.p3() != null) {
 				cnt++;
 
-				triangleAvgColor(triangle);
-				g.setPaint(makeStdevPaint(triangle));
+				//triangleAvgColor2(triangle);
+				//g.setPaint(makeStdevPaint(triangle));
 
-				// g.setColor(new Color(TriangleAvgColor(triangle)));
+				g.setColor(new Color(triangleAvgColor(triangle)));
 				int[] xs = { (int) triangle.p1().x(), (int) triangle.p2().x(),
 						(int) triangle.p3().x() };
 				int[] ys = { (int) triangle.p1().y(), (int) triangle.p2().y(),
 						(int) triangle.p3().y() };
-				// g.drawLine((int)triangle.p1().x(), (int)triangle.p1().y(),
-				// (int)triangle.p2().x(), (int)triangle.p2().y());
-				// g.drawLine((int)triangle.p2().x(), (int)triangle.p2().y(),
-				// (int)triangle.p3().x(), (int)triangle.p3().y());
-				// g.drawLine((int)triangle.p3().x(), (int)triangle.p3().y(),
-				// (int)triangle.p1().x(), (int)triangle.p1().y());
+
 				g.fillPolygon(xs, ys, 3);
 				g.fillPolygon(xs, ys, 3);
 
@@ -210,6 +205,28 @@ public class Drawer {
 	}
 
 	public int triangleAvgColor(Triangle_dt triangle) {
+		List<Point_dt> list = sortPointY(triangle);
+		Point v1 = new Point((int) list.get(0).x(), (int) list.get(0).y());
+		Point v2 = new Point((int) list.get(1).x(), (int) list.get(1).y());
+		Point v3 = new Point((int) list.get(2).x(), (int) list.get(2).y());
+
+		if (v2.y() == v3.y()) {
+			fillBottomFlatTriangle(v1, v2, v3);
+		} else if (v1.y() == v2.y()) {
+			fillTopFlatTriangle(v1, v2, v3);
+		} else {
+
+			Point v4 = new Point(
+					(int) (v1.x() + ((float) (v2.y() - v1.y()) / (float) (v3.y() - v1.y()))
+							* (v3.x() - v1.x())), v2.y());
+			fillBottomFlatTriangle(v1, v2, v4);
+			fillTopFlatTriangle(v2, v4, v3);
+		}
+		return avgPixels();
+
+	}
+	
+	public int triangleAvgColor2(Triangle_dt triangle) {
 		List<Point_dt> list = sortPointY(triangle);
 		Point v1 = new Point((int) list.get(0).x(), (int) list.get(0).y());
 		Point v2 = new Point((int) list.get(1).x(), (int) list.get(1).y());

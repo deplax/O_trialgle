@@ -19,7 +19,7 @@ public class Controller {
 
 		Controller controllor = new Controller();
 
-		String originPath = "./img/06.jpg";
+		String originPath = "./img/04.jpg";
 		String outputPath = "./img/test2.jpg";
 
 		File originFile = new File(originPath);
@@ -53,7 +53,8 @@ public class Controller {
 			
 			// 얼굴 위치에 포인트를 찍는다.
 			for (int[] face : faceList) {
-				pg.generateCircleArea(face[0], face[1], face[2], 1000);	
+				pg.generateCircleArea(face[0], face[1], face[2], 2000);
+				break;
 			}
 			
 			// 그려보자.
