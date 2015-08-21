@@ -6,6 +6,9 @@ import java.util.List;
 public class PointGenerator {
 	List<Point> points = new ArrayList<Point>();
 
+	public PointGenerator() {
+	}
+
 	// 공간분할하여 랜덤찍기
 	public PointGenerator(int w, int h, int num, int divide) {
 		generate(w, h, num, divide);
@@ -24,7 +27,8 @@ public class PointGenerator {
 			int hMax = (i % divide) * hBlock + hBlock;
 
 			for (int j = 0; j < num / (divide * divide); j++) {
-				Point p = new Point(randomNumber(wMin, wMax), randomNumber(hMin, hMax));
+				Point p = new Point(randomNumber(wMin, wMax), randomNumber(
+						hMin, hMax));
 				points.add(p);
 			}
 		}
@@ -41,13 +45,29 @@ public class PointGenerator {
 		System.out.println("points : " + points.size());
 		return points;
 	}
-	
 
-	// 가로 세로를 받아 랜덤으로 점을 찍는다.
-	// 찍은 점을 리스트에 넣는다.
+	// 원형으로 랜덤찍기
+	// 원점과 R, 찍을 점의 수를 받는다.
+	// 먼저 2R의 길이만큼 랜덤을 잡는다.
+	// x = 루트(r제곱 - y제곱)
 
-	// 버퍼이미지 -> 바이트배열 생성.
-	// 바이트 배열 접근 함수 제작.
+	public void generateCircleArea(int x, int y, int r, int num) {
 
-	// 점을 그리는 함수 제작.
+		int cx, t, cy;
+
+		for (int i = 0; i < num; i++) {
+			if (i % 2 == 0) {
+				cx = randomNumber(-r, +r);
+				t = (int) Math.sqrt((double) (r * r - cx * cx));
+				cy = randomNumber(-t, +t);
+			} else {
+				cy = randomNumber(-r, +r);
+				t = (int) Math.sqrt((double) (r * r - cy * cy));
+				cx = randomNumber(-t, +t);
+			}
+			Point p = new Point(x + r + cx, y + r + cy);
+			points.add(p);
+		}
+
+	}
 }
