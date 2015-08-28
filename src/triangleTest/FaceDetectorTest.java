@@ -8,9 +8,10 @@ public class FaceDetectorTest {
 
 	@Test
 	public void faceDetectTest() {
-		String originPath = "./img/IU2.jpg";
-		FaceDetector f = new FaceDetector();
-		f.getFacePositioin(originPath);
+		String originPath = "./img/002.jpg";
+		FaceDetector f = new FaceDetector(originPath);
+		f.findFacePoints();
+		
 	}
 
 }

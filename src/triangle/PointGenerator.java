@@ -52,9 +52,9 @@ public class PointGenerator {
 	// x = 루트(r제곱 - y제곱)
 
 	public void generateCircleArea(int x, int y, int r, int num) {
-
 		int cx, t, cy;
-
+		x = x + r;
+		y = y + r;
 		for (int i = 0; i < num; i++) {
 			if (i % 2 == 0) {
 				cx = randomNumber(-r, +r);
@@ -65,7 +65,7 @@ public class PointGenerator {
 				t = (int) Math.sqrt((double) (r * r - cy * cy));
 				cx = randomNumber(-t, +t);
 			}
-			Point p = new Point(x + r + cx, y + r + cy);
+			Point p = new Point(x + cx, y + cy);
 			points.add(p);
 		}
 
