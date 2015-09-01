@@ -15,5 +15,22 @@
     "grunt-contrib-watch": "~0.4.0",
     "grunt-contrib-clean": "~0.4.0",
     "grunt": "~0.4.5"
-  }
+  },
+  "dependencies": {
+    "bower": "^1.5.2"
+  },
+  "main": "Gruntfile.js",
+  "bin": {
+    "triangle": "Gruntfile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deplax/O_triangle"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deplax/O_triangle/issues"
+  },
+  "homepage": "https://github.com/deplax/O_triangle"
 }
