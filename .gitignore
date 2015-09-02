@@ -1,4 +1,6 @@
 /node_modules/
+/bower_components/
+/img/
 
 # Created by https://www.gitignore.io/api/eclipse
 
