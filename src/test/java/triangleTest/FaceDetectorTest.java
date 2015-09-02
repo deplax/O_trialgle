@@ -2,7 +2,7 @@ package triangleTest;
 
 import org.junit.Test;
 
-import faceDetection.FaceDetector;
+import triangle.faceDetection.FaceDetector;
 
 public class FaceDetectorTest {
 

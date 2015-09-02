@@ -11,11 +11,11 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import faceDetection.FaceDetector;
+import triangle.faceDetection.FaceDetector;
 
 public class Controller {
 
-	public static void main(String[] args) {
+	public void triangle(){
 
 		Controller controllor = new Controller();
 

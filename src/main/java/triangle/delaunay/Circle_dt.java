@@ -1,4 +1,4 @@
-package delaunay;
+package triangle.delaunay;
 /**
  *  this class represents a simple circle. <br />
  *  it is used by the Delaunay Triangulation class. <br />

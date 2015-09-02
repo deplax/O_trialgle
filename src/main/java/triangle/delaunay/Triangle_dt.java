@@ -1,4 +1,4 @@
-package delaunay;
+package triangle.delaunay;
 /**
  * This class represents a 3D triangle in a Triangulation! 
  *

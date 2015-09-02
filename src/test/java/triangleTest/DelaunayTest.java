@@ -6,9 +6,9 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import delaunay.Delaunay_Triangulation;
-import delaunay.Point_dt;
-import delaunay.Triangle_dt;
+import triangle.delaunay.Delaunay_Triangulation;
+import triangle.delaunay.Point_dt;
+import triangle.delaunay.Triangle_dt;
 
 public class DelaunayTest {
 

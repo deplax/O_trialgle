@@ -12,9 +12,9 @@ import java.util.List;
 
 import util.Calc;
 import util.NoAscCompare;
-import delaunay.Delaunay_Triangulation;
-import delaunay.Point_dt;
-import delaunay.Triangle_dt;
+import triangle.delaunay.Delaunay_Triangulation;
+import triangle.delaunay.Point_dt;
+import triangle.delaunay.Triangle_dt;
 
 public class Drawer {
 	// point list를 넘겨받는다.

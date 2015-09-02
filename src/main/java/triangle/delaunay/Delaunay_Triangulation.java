@@ -1,4 +1,4 @@
-package delaunay;
+package triangle.delaunay;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,7 +1,7 @@
 package util;
 
 import java.util.Comparator;
-import delaunay.Point_dt;
+import triangle.delaunay.Point_dt;
 
 public class NoAscCompare implements Comparator<Point_dt> {
 

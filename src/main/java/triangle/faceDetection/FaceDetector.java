@@ -1,4 +1,4 @@
-package faceDetection;
+package triangle.faceDetection;
 
 import java.util.ArrayList;
 import java.util.List;

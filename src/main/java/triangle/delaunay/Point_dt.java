@@ -1,4 +1,4 @@
-package delaunay;
+package triangle.delaunay;
 
 import java.util.Comparator;
 
