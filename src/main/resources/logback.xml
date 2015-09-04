@@ -6,28 +6,29 @@
 		</encoder>
 	</appender>
 
-	<appender name="FILE"
+	<!-- <appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>logs/weblog.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!-- daily rollover -->
+			daily rollover
 			<fileNamePattern>logs/weblog.%d{yyyy-MM-dd}.log</fileNamePattern>
-			<!-- keep 30 days' worth of history -->
+			keep 30 days' worth of history
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}] %m%n</pattern>
 		</encoder>
-	</appender>
+	</appender> -->
+	
 	 <!--
 	<logger name="org.springframework" level="DEBUG">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
 	</logger>
 	-->
-	<logger name="march4" level="DEBUG">
+	<logger name="triangle" level="DEBUG">
 		<appender-ref ref="STDOUT" />
-		<appender-ref ref="FILE" />
+		<!-- <appender-ref ref="FILE" /> -->
 	</logger>
 	<!-- 
 	<root level="DEBUG">

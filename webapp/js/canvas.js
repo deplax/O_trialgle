@@ -86,11 +86,15 @@ $("#fileSelect").change(function() {
         img.src = reader.result
         resize(img);
     };
+
+    // var data = [];
+    // data.push(this.files);
+    // post_to_url("/file", data);
 });
 
 function resize(img) {
-	var jcanvas = $("#myCanvas2");
-	jcanvas.hide();
+    var jcanvas = $("#myCanvas2");
+    jcanvas.hide();
     var canvas = $("#myCanvas2").get(0);
     var ctx = canvas.getContext("2d");
 
@@ -114,7 +118,73 @@ function resize(img) {
     canvas.height = height;
 
     ctx.drawImage(img, 0, 0, width, height);
-    var dataurl = canvas.toDataURL("image/png");
-    debugger;
+    var dataurl = canvas.toDataURL("image/jpg");
+
+    var data = [];
+    data.push(dataurl);
+    post_to_url("/file", data);
+
 
 }
+
+function post_to_url(path, params, method) {
+    method = method || "post"; // 전송 방식 기본값을 POST로
+
+    var form = document.createElement("form");
+    //form.setAttribute("enctype", "multipart/form-data")
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    //히든으로 값을 주입시킨다.
+    for (var key in params) {
+        console.log(key);
+
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "text");
+        hiddenField.setAttribute("name", "key");
+        hiddenField.setAttribute("value", params[key]);
+
+        form.appendChild(hiddenField);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+
+// video test 
+
+video = document.getElementById('myvideo');
+
+//크롬 아닌애들 지원하려면 webkit떼는 처리 해야함.
+if (navigator.webkitGetUserMedia) {
+    navigator.webkitGetUserMedia({
+        video: true
+    }, success, fail);
+} else {
+    navigator.getUserMedia({
+        video: true
+    }, success, fail);
+}
+
+function success(stream) {
+    if (window.webkitURL) {
+        video.src = window.webkitURL.createObjectURL(stream);
+    } else {
+        video.src = window.URL.createObjectURL(stream);
+    }
+}
+
+function fail(err) {
+    console.log("The following error occured: " + err);
+}
+
+
+$("#myvideo").click(function() {
+    var cvs = document.createElement("canvas");
+    debugger;
+    var ctx = cvs.getContext("2d");
+    ctx.drawImage(video, 0, 0, this.width, this.height);
+    document.body.appendChild(cvs);
+
+});
