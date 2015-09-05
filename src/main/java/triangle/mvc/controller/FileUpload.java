@@ -23,6 +23,23 @@ public class FileUpload {
 	@Autowired
 	private ServletContext servletContext;
 
+	// ## 회원가입을 하지 않는 유저. ## 
+	// 클라에서 사진을 선택
+	// 선택한 사진을 클라에서 리사이즈
+	// 리사이즈 한 사진을 서버로 전송
+	// 서버에서 이미지를 인식하여 눈코입이 얼마만큼 잡히는지 확인
+	// 결과만 클라에 전송.
+	// 클라에서 convert 요청
+	// 서버에서 점을 추출.
+	// 추출된 점을 클라에 전송.
+	
+	
+	// 컨트롤러에서 리사이즈 이미지를 가져온다.
+	// 리사이즈 이미지에서 점을 추출한다.
+	// 추출한 점을 gson 형식으로 만든다.
+	
+	
+
 	@RequestMapping(value = "/file", method = RequestMethod.POST)
 	public String updatePos(@RequestParam("key") String str) {
 		log.debug("enter file upload page post");
@@ -31,7 +48,8 @@ public class FileUpload {
 		// System.out.println(file.getOriginalFilename());
 		// System.out.println(file.getContentType());
 		// System.out.println(file.getSize());
-		imgProcess(str);
+		
+		
 		return "canvasTest";
 
 	}
@@ -42,22 +60,19 @@ public class FileUpload {
 		return "canvasTest";
 	}
 
-	public void imgProcess(String imageValue) {
-		String imageDataBytes = imageValue
-				.substring(imageValue.indexOf(",") + 1);
-		byte[] imageByte = Base64.decodeBase64(imageDataBytes);
-
-		String directory = servletContext.getRealPath("/") + "img/sample.jpg";
-
+	public byte[] imgStringToByteArr(String imgString) {
+		String imageDataBytes = imgString.substring(imgString.indexOf(",") + 1);
+		return Base64.decodeBase64(imageDataBytes);
+	}
+	
+	public void savefile(String filename, byte[] imgByte ){
+		String directory = servletContext.getRealPath("/") + "img/" + filename+".jpg";
 		try {
-			new FileOutputStream(directory).write(imageByte);
+			new FileOutputStream(directory).write(imgByte);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 }
