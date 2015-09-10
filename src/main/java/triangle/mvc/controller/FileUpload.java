@@ -38,6 +38,12 @@ public class FileUpload {
 	// 리사이즈 이미지에서 점을 추출한다.
 	// 추출한 점을 gson 형식으로 만든다.
 	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String kuku() {
+		log.debug("enter file fileUpload page get");
+		return "fileUpload";
+	}
+	
 	
 
 	@RequestMapping(value = "/file", method = RequestMethod.POST)

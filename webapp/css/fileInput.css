@@ -1,12 +1,69 @@
-html {
-	margin: 0;
-}
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 body {
+	font-family: 'Nanum Gothic', serif;
+	font-weight: bolder;
 	margin: 0;
+	background-color: #86CCCD;
 }
 
-canvas {
-	border-style: solid;
-	border-width: 1px;
+div.upload {
+	float: left;
+	position: relative;
+	left: 10px;
+	top: 10px;
+
+	color: white;
+  	text-align: center;
+	line-height: 54px;
+
+    width: 157px;
+    height: 57px;
+    border-radius: 5px;
+	background: #434343;
+    overflow: hidden;
 }
+
+div.upload input {
+	float: left;
+	position: absolute;
+	top: 0;
+	left: 0;
+	
+	border-radius: 5px;
+    display: block !important;
+    width: 157px !important;
+    height: 57px !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+}
+
+.captureButton {
+	font-size: 16px;
+	float: left;
+	border: 0px;
+	position: relative;
+	left: 10px;
+	top: 10px;
+
+	color: white;
+  	text-align: center;
+	line-height: 50px;
+
+    width: 157px;
+    height: 57px;
+    border-radius: 5px;
+	background: #434343;
+    overflow: hidden;
+}
+
+#previewCanvas{
+	float: left;
+	background-color: #83CEC6;
+	border-color: #0B3252;
+	border-width: 10px;
+	border-style: solid;
+	border-radius: 5px;
+	margin: 0px;
+}
+

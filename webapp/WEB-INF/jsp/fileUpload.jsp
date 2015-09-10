@@ -8,10 +8,19 @@
 </head>
 
 <body>
-    <canvas id="myCanvas" width="500" height="500">
-    </canvas>
 
-    <button id="fileUploax"></button>
+	<canvas id="previewCanvas" width="500" height="500">
+    </canvas>    
+
+	<div class="upload">Select Picture
+    	<input id="fileSelect" type="file">
+    </div>
+    <div class="capture">
+    	<button class="captureButton">Capture Start</button>
+    </div>
+
+
+ 
 
     <!-- ScriptArea ============================================== -->
 
