@@ -15,14 +15,17 @@
 	<div class="upload">Select Picture
     	<input id="fileSelect" type="file">
     </div>
+    <div>
+        <button class="buttonDefault submit">Submit</button>
+    </div>
     <div class="capture">
-    	<button class="captureButton">Capture Start</button>
+    	<button class="buttonDefault">Capture Start</button>
     </div>
 
 
  
 
-    <!-- ScriptArea ============================================== -->
+    <!-- ScriptArea -->
 
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

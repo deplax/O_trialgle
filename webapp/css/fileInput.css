@@ -38,7 +38,7 @@ div.upload input {
     overflow: hidden !important;
 }
 
-.captureButton {
+.buttonDefault {
 	font-size: 16px;
 	float: left;
 	border: 0px;

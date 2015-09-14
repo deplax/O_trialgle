@@ -195,24 +195,25 @@
 function CanvasDrawer(canvasName) {
     this.canvas;
     this.ctx;
-
     this.triangles = [];
-
-    this.image;
-
+    this.imageString;
     this.file;
+
     this.init(canvasName);
     this.setFile("#fileSelect");
 };
 
 CanvasDrawer.prototype.init = function(canvasName) {
-	this.jcanvas = $("#previewCanvas");
-    this.canvas = document.getElementById(canvasName);
-    var height = $(window).height() - 20;
-    this.jcanvas.attr("height", height );
-    this.jcanvas.attr("width", height );
-    this.ctx = this.canvas.getContext("2d");
+    this.canvas = $("#previewCanvas");
+    this.ctx = this.canvas[0].getContext("2d");
+    this.setCanvasSize();
 };
+
+CanvasDrawer.prototype.setCanvasSize = function() {
+    var height = $(window).height() - 20;
+    this.canvas.attr("height", height);
+    this.canvas.attr("width", height);
+}
 
 CanvasDrawer.prototype.setFile = function(fileSelect) {
     var canvasSelf = this;
@@ -233,33 +234,47 @@ CanvasDrawer.prototype.setFile = function(fileSelect) {
     });
 };
 
-CanvasDrawer.prototype.resize = function(){
-	var MAX_WIDTH = 500;
-    var MAX_HEIGHT = 500;
+CanvasDrawer.prototype.resize = function() {
+    var MAX_WIDTH = this.canvas.attr("height");
+    var MAX_HEIGHT = this.canvas.attr("height");
     var width = this.image.width;
     var height = this.image.height;
 
     if (width > height) {
-        if (width > MAX_WIDTH) {
-            height *= MAX_WIDTH / width;
-            width = MAX_WIDTH;
-        }
+        //if (width > MAX_WIDTH) {
+        height *= MAX_WIDTH / width;
+        width = MAX_WIDTH;
+        //}
     } else {
-        if (height > MAX_HEIGHT) {
-            width *= MAX_HEIGHT / height;
-            height = MAX_HEIGHT;
-        }
+        //if (height > MAX_HEIGHT) {
+        width *= MAX_HEIGHT / height;
+        height = MAX_HEIGHT;
+        //}
     }
-    
-    this.canvas.width = width;
-    this.canvas.height = height;
+
+    this.canvas.attr("height", height);
+    this.canvas.attr("width", width);
 
     this.ctx.drawImage(this.image, 0, 0, width, height);
-    var dataurl = this.canvas.toDataURL("image/jpg");
-
-    // var data = [];
-    // data.push(dataurl);
-    // post_to_url("/file", data);
+    this.imageString = this.canvas[0].toDataURL("image/jpg");
 }
+
+$(".submit").click(function() {
+    var jsonData = new Object();
+    jsonData.imageString = canvasDrawer.imageString;
+    if(jsonData.imageString === undefined)
+        return;
+    $.ajax({
+        url: "/fileUpload",
+        type: "POST",
+        data: jsonData,
+        success: function(result) {
+            console.log(result);
+        },
+        error: function(e) {
+            console.log(e.message);
+        }
+    });
+});
 
 canvasDrawer = new CanvasDrawer("previewCanvas");
