@@ -21,7 +21,7 @@ public class ModifyController {
 	private ServletContext servletContext;
 
 	@RequestMapping(value = "/modifyFloor", method = RequestMethod.GET)
-	public String fileControlFloor(HttpSession session) {
+	public String ModifyFloor(HttpSession session) {
 		log.debug("enter modifyFloor page get");
 		Canvas c = (Canvas) session.getAttribute("canvas");
 		log.debug(c.getBufferedImage().toString());
