@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class FrontFloorController {
 	private static final Logger log = LoggerFactory.getLogger(FrontFloorController.class);
 	
-	@RequestMapping(value = "/FrontFloor", method = RequestMethod.GET)
+	@RequestMapping(value = "/frontFloor", method = RequestMethod.GET)
 	public String fileModifyFloor() {
 		log.debug("welcome FrontFloor!");
 		return "frontFloor";

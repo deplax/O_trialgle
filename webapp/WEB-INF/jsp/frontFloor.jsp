@@ -4,9 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Triangle</title>
+<link rel="stylesheet" type="text/css" href="/css/triangle.css">
 </head>
 <body>
+	<div class="floorLabelBox">
+		<span>1F</span>
+	</div>
+	<div class="titleArea">
+	</div>
+	<form action="" method="POST">
+		 <input class="textBox" type="text" name="email">
+		 <input type="password" name="password">
+		 <input type="submit" value="Submit">
+	</form>
 
 </body>
 </html>
