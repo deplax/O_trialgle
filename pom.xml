@@ -175,6 +175,17 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>${jackson-mapper-asl}</version>
 		</dependency>
+		<!-- MongoDB Java Driver -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>2.13.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.7.2.RELEASE</version>
+		</dependency>
 		<!-- EmbeddedTomcat -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>

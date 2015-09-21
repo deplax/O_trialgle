@@ -4,8 +4,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context" 
 	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.1.xsd
+	http://www.springframework.org/schema/data/mongo
+	http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
 	<context:property-placeholder 
 		location="classpath*:application-properties.xml" 
@@ -25,8 +31,26 @@
 		p:dataSource-ref="dataSource" 
 	/>
 
-	<bean id="localValidator"
-    	class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" 
-    />
+	<bean
+		id="localValidator" 
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"
+	/>
+	
+	<mongo:db-factory 
+		dbname="triangle" 
+		host="125.209.196.156" 
+		port="27017" 
+		username="kuku" 
+		password="asdfasdf"
+	 />
+ 
+	
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+
+	</bean>
+	
+	<mongo:mongo id="mongo" host="125.209.196.156" port="27017" />
+	
 
 </beans>
