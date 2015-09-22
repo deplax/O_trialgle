@@ -32,10 +32,10 @@ public class FileUploadController {
 	@Autowired
 	private ServletContext servletContext;
 
-	@RequestMapping(value = "/fileControlFloor", method = RequestMethod.GET)
+	@RequestMapping(value = "/fileUploadFloor", method = RequestMethod.GET)
 	public String fileControlFloor() {
 		log.debug("enter fileControlFloor page get");
-		return "fileUpload";
+		return "fileUploadFloor";
 	}
 	
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
@@ -45,6 +45,7 @@ public class FileUploadController {
 		
 		Canvas canvas = new Canvas();
 		canvas.setBufferedImage(image);
+		// 세션에 넣는다.
 		model.addAttribute("canvas", canvas);
 		
 		return "redirect:/modifyFloor";

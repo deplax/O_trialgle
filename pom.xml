@@ -229,8 +229,8 @@
 			<artifactId>opencv-custom</artifactId>
 			<version>1.0.0</version>
 			<scope>system</scope>
-			<!-- <systemPath>/Users/Deplax/Downloads/opencv-3.0.0/build/bin/opencv-300.jar</systemPath> -->
-			<systemPath>C:\Program Files\opencv\build\java\opencv-300.jar</systemPath>
+			<systemPath>/Users/Deplax/Downloads/opencv-3.0.0/build/bin/opencv-300.jar</systemPath>
+			<!-- <systemPath>C:\Program Files\opencv\build\java\opencv-300.jar</systemPath> -->
 		</dependency>
 
 		<!-- file upload -->

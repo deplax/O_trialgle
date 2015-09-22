@@ -1,0 +1,136 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+html {
+	height : 100%;
+}
+
+body {
+	font-family: 'Nanum Gothic', serif;
+	font-weight: bolder;
+	margin: 0;
+	background-color: #DE6B58;
+	height: 100%;
+}
+
+div {
+	//box-shadow: 0 0 0 1px red inset;
+}
+.wrapper{
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+.titleArea{
+	font-size: 4.5em;
+	font-weight: 300;
+	color: #fff;
+	float: left;
+	width: 60%;
+	height: 100%;
+}
+
+.formArea{
+	float: left;
+	width: 40%;
+	height: 100%;
+	margin-top: 70px;
+}
+
+.contentsArea{
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    margin: auto;
+    margin-left: auto;
+  	margin-right: auto;
+
+  	width: 700px;
+  	height: 60%;
+
+}
+
+.floorLabelBox{
+	color: #DE6B58;
+	position: absolute;
+	padding: 20px 20px 20px 20px;
+	font-size: 50px;
+	background-color: #fff;
+}
+
+.field{
+	font-family: 'Open Sans',sans-serif;
+	position: relative;
+}
+
+.signup{
+	font-size: 14px;
+	color: #787878;
+	text-decoration: none;
+}
+.signup:link {
+    color: #787878;
+    text-decoration: none;
+}
+
+.signup:visited {
+    color: #787878;
+    text-decoration: none;
+}
+
+.signup:hover {
+    color: #787878;
+    text-decoration: none;
+}
+
+.signup:active {
+    color: #787878;
+    text-decoration: none;
+}
+
+.textBox{
+    font-size: 12px;
+    font-weight: 400;
+    padding: 10px 15px 10px 55px;
+    position: relative;
+    width: 180px;
+    height: 24px;
+    color: #676056;
+    border: none;
+    background: #f7f3eb;
+    color: #777;
+    transition: color 0.3s ease-out;
+}
+
+.button{
+    width: 251px;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Open Sans',sans-serif;
+    padding: 12px 0;
+    letter-spacing: 5px;
+    color: #DE6B58;
+    background-color: #fff;
+    text-shadow: none;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.i{
+	font-size: 12px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    height: 44px;
+    width: 44px;
+    color: #f7f3eb;
+    background: #676056;
+    text-align: center;
+    line-height: 44px;
+    transition: all 0.3s ease-out;
+    pointer-events: none;
+}

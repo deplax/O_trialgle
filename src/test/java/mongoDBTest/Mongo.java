@@ -1,36 +1,30 @@
 package mongoDBTest;
 
-import org.bson.Document;
 import org.junit.Test;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
 
 public class Mongo {
 
 	@Test
-	public void test() {
-		String dbURI = "mongodb://kuku:asdfasdf@125.209.196.156:27017/company?authSource=ad,in";
+	public void test() throws Exception{
+		String dbURI = "mongodb://kuku:asdfasdf@125.209.196.156:27017/company";
 		MongoClient mongoClient = new MongoClient(new MongoClientURI(dbURI));
-		MongoDatabase database = mongoClient.getDatabase("emp");
-		MongoCollection<Document> collection = database.getCollection("emp");
-		
-		// Document doc = new Document("name", "MongoDB")
-		// .append("type", "database")
-		// .append("count", 1)
-		// .append("info", new Document("x", 203).append("y", 102));
-		
+		DB database = mongoClient.getDB("company");
+		DBCollection collection = database.getCollection("emp");
+
 		// 1. insertion
-		//BasicDBObject doc = new BasicDBObject("eno", 1234).append("name", "Lee add");
-		Document documnet = new Document("eno", "2345");
-		collection.insertOne(documnet);
-		MongoCursor<Document> cursor = collection.find().iterator();
+		BasicDBObject doc = new BasicDBObject("eno", 1234).append("name", "Lee add");
+		collection.insert(doc);
+		DBCursor cursor = collection.find();
 		try {
 		    while (cursor.hasNext()) {
-		        System.out.println(cursor.next().toJson());
+		        System.out.println(cursor.next());
 		    }
 		} finally {
 			mongoClient.close();

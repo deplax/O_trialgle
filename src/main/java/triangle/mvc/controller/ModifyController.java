@@ -24,6 +24,7 @@ public class ModifyController {
 	public String ModifyFloor(HttpSession session) {
 		log.debug("enter modifyFloor page get");
 		Canvas c = (Canvas) session.getAttribute("canvas");
+		
 		log.debug(c.getBufferedImage().toString());
 		return "modifyFloor";
 	}

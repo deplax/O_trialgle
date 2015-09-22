@@ -1,0 +1,213 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Nanum Gothic', serif;
+    font-weight: bolder;
+    margin: 0;
+    background-color: #FFFFFF;
+    height: 100%;
+    overflow: hidden;
+}
+
+div {
+    box-shadow: 0 0 0 1px red inset;
+}
+
+.wrapper {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.titleArea {
+    font-size: 5em;
+    font-weight: 300;
+    color: #343434;
+    float: left;
+    width: 60%;
+    height: 100%;
+}
+
+.formArea {
+    float: left;
+    width: 40%;
+    height: 100%;
+    margin-top: 100px;
+}
+
+.contentsArea {
+    position: absolute;
+    top: 800px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 600px;
+    height: 70%;
+}
+
+.contentsHide {
+	top: 600px;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.ani{
+	transition: all 0.4s ease-out;
+}
+
+.titleBox{
+	font-family: 'Open Sans',sans-serif;
+	font-size: 25px;
+	text-align: center;
+	width: 100%;
+	margin: 20px 0px 20px 0px;
+	float: left;
+}
+
+.titleBox.down{
+	margin-top: 30px;
+	text-align: left;
+	font-size: 18px;
+}
+
+.floorLabelBox {
+    color: #fff;
+    position: absolute;
+    padding: 20px 20px 20px 20px;
+    font-size: 50px;
+    background-color: #8ACCCD;
+}
+
+.field {
+    font-family: 'Open Sans', sans-serif;
+    height: 100%;
+    position: relative;
+}
+
+.button {
+    width: 250px;
+    height: 220px;
+    text-align: center;
+	font-size: 26px;
+    font-family: 'Open Sans', sans-serif;
+    padding: 0;
+    color: #000;
+    background-color: #8ACCCD;
+    cursor: pointer;
+    position: relative;
+    box-sizing: content-box;
+    border-width: 0px;
+}
+
+.button:hover {
+	background-color: #C6E4E1;
+}
+
+.fieldBox {
+	font-size: 20px;
+	font-weight: 300;
+    float: left;
+    width: 50%;
+}
+
+.captureBox {
+	height: 220px;
+    width: 250px;
+    position: relative;
+    border-top: 5px solid #113658;
+    border-bottom: 10px solid #113658;
+    color: black;
+    margin: auto;
+    text-align: center;
+}
+/*=====================================*/
+.canvasBox{
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100px;
+    right: 0;
+    margin: auto;
+    width: 90%;
+    height: 70%;
+}
+
+.canvasBox > div:nth-child(1){
+	float: left;
+	width: 60%;
+	height: 100%;
+}
+
+.canvasBox > div:nth-child(2){
+	float: left;
+	width: 30%;
+	height: 100%;
+}
+
+.nbutton {
+	float: left;
+}
+
+#previewCanvas{
+	width: 100%;
+	height: 100%;
+	border-style: solid;
+	border-width: 1px;
+}
+/*=====================================*/
+
+#dropzone {
+	display: table;
+    position: relative;
+    border-top: 5px solid #113658;
+    border-bottom: 10px solid #113658;
+    color: black;
+    font-size: 26px;
+    font-family: 'Open Sans', sans-serif;
+    margin: auto;
+    text-align: center;
+    width: 250px;
+    height: 220px;
+    transition: all 0.3s ease-out;
+}
+
+#dropzone.dropped {
+    background: #222;
+    border: 10px solid #444;
+}
+
+#dropzone div {
+	background-color: #8ACCCD;
+	display: table-cell;
+	vertical-align: middle;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#dropzone:hover div {
+	background-color: #C6E4E1;
+}
+
+#dropzone img {
+    border-radius: 10px;
+    vertical-align: middle;
+    max-width: 95%;
+    max-height: 95%;
+}
+
+#dropzone [type="file"] {
+    width: 250px;
+    cursor: pointer;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}

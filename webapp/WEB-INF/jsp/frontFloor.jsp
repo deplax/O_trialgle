@@ -5,19 +5,43 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Triangle</title>
-<link rel="stylesheet" type="text/css" href="/css/triangle.css">
+<link rel="stylesheet" type="text/css" href="/css/frontFloor.css">
 </head>
 <body>
 	<div class="floorLabelBox">
 		<span>1F</span>
 	</div>
-	<div class="titleArea">
+	<div class="wrapper">
+	<div class="contentsArea">
+		<div class="titleArea">
+			Welcome to the triangle world.
+		</div>
+		<div class="formArea">
+			<form>
+				<p class="field">
+				 	<input class="email textBox" type="text" name="email">
+				 	<i class="i">ID</i>
+				 </p>
+				 <p class="field">
+			 		<input class="password textBox" type="password" name="password">
+			 		<i class="i">PW</i>
+			 	</p>
+			 	<p class="field">
+			 		<input class="signin button" type="button" value="Login">
+			 	</p>
+			 	<p class="field">
+			 		<a class="signup" href="/registerFloor">
+			 			Not a member yet?
+			 		</a>
+			 	</p>
+			</form>
+		</div>	
 	</div>
-	<form action="" method="POST">
-		 <input class="textBox" type="text" name="email">
-		 <input type="password" name="password">
-		 <input type="submit" value="Submit">
-	</form>
+	</div>
 
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    <script type="text/javascript" src="/js/frontFloor.js"></script>
 </body>
 </html>
