@@ -204,15 +204,15 @@ function CanvasDrawer(canvasName) {
 };
 
 CanvasDrawer.prototype.init = function(canvasName) {
-    this.canvas = $("#previewCanvas");
+    this.canvas = $(canvasName);
     this.ctx = this.canvas[0].getContext("2d");
     this.setCanvasSize();
 };
 
 CanvasDrawer.prototype.setCanvasSize = function() {
-    var height = $(window).height() - 20;
-    this.canvas.attr("height", height);
-    this.canvas.attr("width", height);
+    // var height = $(window).height() - 20;
+    // this.canvas.attr("height", height);
+    // this.canvas.attr("width", height);
 }
 
 CanvasDrawer.prototype.setFile = function(fileSelect) {
@@ -220,7 +220,6 @@ CanvasDrawer.prototype.setFile = function(fileSelect) {
 
     $("#fileSelect").change(function() {
         canvasSelf.file = this.files[0];
-        debugger;
         var reader = new FileReader();
         if (canvasSelf.file) {
             //여기에서 파일 타입이 이미지가 아닐 경우에 대한 처리 필요.
@@ -231,16 +230,22 @@ CanvasDrawer.prototype.setFile = function(fileSelect) {
             canvasSelf.image = document.createElement("img");
             canvasSelf.image.src = reader.result;
             canvasSelf.resize();
+            $(".contentsArea").addClass("contentsHide");
+            $(".canvasBox").removeClass("contentsHide");
+        };
+
+        reader.change = function() {
+            console.log("change");
         };
     });
 };
 
 CanvasDrawer.prototype.resize = function() {
-    var MAX_WIDTH = this.canvas.attr("height");
-    var MAX_HEIGHT = this.canvas.attr("height");
+    var MAX_WIDTH = parseInt(this.canvas.css("width"));
+    var MAX_HEIGHT = parseInt(this.canvas.css("height"));
     var width = this.image.width;
     var height = this.image.height;
-
+    //debugger;
     if (width > height) {
         //if (width > MAX_WIDTH) {
         height *= MAX_WIDTH / width;
@@ -252,33 +257,38 @@ CanvasDrawer.prototype.resize = function() {
         height = MAX_HEIGHT;
         //}
     }
-
+    
+    this.canvas.css("height", "auto");
+    this.canvas.css("width", "auto");
     this.canvas.attr("height", height);
     this.canvas.attr("width", width);
 
     this.ctx.drawImage(this.image, 0, 0, width, height);
-    this.imageString = this.canvas[0].toDataURL("image/jpg");
+    this.imageString = this.canvas[0].toDataURL("image/jpeg");
 }
 
 $(".upload").click(function() {
     var jsonData = new Object();
-    jsonData.imageString = canvasDrawer.imageString;
+    jsonData.imageString = hiddenCanvas.imageString;
+    jsonData.previewCanvas = canvasDrawer.imageString;
     if(jsonData.imageString === undefined)
         return;
     $.ajax({
         url: "/fileUpload",
         type: "POST",
         data: jsonData,
-        success: function(result) {
-            console.log(result);
+        success: function(data) {
+            console.log(data);
+            if(data.message === "success")
+                window.location.replace("/modifyFloor")
         },
         error: function(e) {
             console.log(e.message);
         }
     });
 });
-
-canvasDrawer = new CanvasDrawer("previewCanvas");
+hiddenCanvas = new CanvasDrawer("#hiddenCanvas");
+canvasDrawer = new CanvasDrawer("#previewCanvas");
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // a > b

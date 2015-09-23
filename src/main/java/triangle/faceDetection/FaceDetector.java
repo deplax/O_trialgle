@@ -1,9 +1,12 @@
 package triangle.faceDetection;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
@@ -14,9 +17,8 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
 public class FaceDetector {
-	private static final String HAAR_DIR = "/Users/Deplax/Downloads/opencv-3.0.0/data/haarcascades/";
-	// private static final String HAAR_DIR =
-	// "C:/Program Files/opencv/build/etc/haarcascades";
+	//private static final String HAAR_DIR = "/Users/Deplax/Downloads/opencv-3.0.0/data/haarcascades/";
+	 private static final String HAAR_DIR = "C:/Program Files/opencv/build/etc/haarcascades/";
 
 	private static final String FACE = "haarcascade_frontalface_alt2.xml";
 	private static final String LEFT_EYE = "haarcascade_mcs_lefteye.xml";
@@ -25,15 +27,16 @@ public class FaceDetector {
 	private static final String MOUTH = "haarcascade_mcs_mouth.xml";
 
 	private String imgPath;
+	private Mat image;
 
 	// RECT를 가져오는 함수 제작.
 	// RECT를 그리는 함수.
 
 	List<int[]> facePosition = new ArrayList<int[]>();
 
-	public FaceDetector(String imgPath) {
+	public FaceDetector(BufferedImage bi) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		this.imgPath = imgPath;
+		this.image = bufferedImagetoMat(bi);
 	}
 
 	public List<int[]> getFacePosition() {
@@ -51,10 +54,18 @@ public class FaceDetector {
 		findPoint(MOUTH);
 		
 	}
+	
+	public Mat bufferedImagetoMat(BufferedImage image){
+		byte[] data = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+		Mat mat = new Mat(image.getHeight(), image.getWidth(), CvType.CV_8UC3);
+		mat.put(0, 0, data);
+		return mat;
+	}
+
+
 
 	public void findPoint(String pos) {
 		CascadeClassifier faceDetector = new CascadeClassifier(HAAR_DIR + pos);
-		Mat image = Imgcodecs.imread(imgPath);
 		MatOfRect detections = new MatOfRect();
 		faceDetector.detectMultiScale(image, detections);
 		System.out.println(String.format("Detected %s",
@@ -75,11 +86,12 @@ public class FaceDetector {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		String caacade = "haarcascade_frontalface_alt2";
-		CascadeClassifier faceDetector = new CascadeClassifier(
-				"/Users/Deplax/Downloads/opencv-3.0.0/data/haarcascades/"
+//		CascadeClassifier faceDetector = new CascadeClassifier(
+//				"/Users/Deplax/Downloads/opencv-3.0.0/data/haarcascades/"
+//						+ caacade + ".xml");
+		CascadeClassifier faceDetector = new
+		CascadeClassifier("C:/Program Files/opencv/build/etc/haarcascades/"
 						+ caacade + ".xml");
-		// CascadeClassifier faceDetector = new
-		// CascadeClassifier("C:/Program Files/opencv/build/etc/haarcascades/haarcascade_frontalface_alt.xml");
 		Mat image = Imgcodecs.imread(img);
 
 		MatOfRect faceDetections = new MatOfRect();

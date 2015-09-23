@@ -19,7 +19,7 @@
 			<div class="fieldBox"> 
 	   		 	<div id="dropzone">
 	  				<div class="text ani">File Select <br> Drag&amp;Drop</div>
-	  				<input id="fileSelect" type="file" accept="image/png, application/pdf" />
+	  				<input id="fileSelect" type="file" accept="image/jpeg, image/png, image/gif" />
 				</div>
 			</div>
 			<div class="fieldBox">
@@ -32,10 +32,10 @@
    		 	</div>
 		</div>
 
-		<div class="canvasBox">
+		<div class="canvasBox ani contentsHide">
 			<div>
 				<canvas id="previewCanvas">
-   		 		</canvas> 
+   		 		</canvas>
    		 	</div>
    		 	<div>
 				<div>
@@ -47,8 +47,8 @@
    		 	</div>
 		</div>
 	</div>
-
-	   
+	<canvas id="hiddenCanvas">
+   	</canvas>
     <!-- ScriptArea -->
 
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
