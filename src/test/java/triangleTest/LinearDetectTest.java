@@ -17,7 +17,7 @@ public class LinearDetectTest {
 
 	@Test
 	public void test() throws IOException {
-		String originPath = "./img/004.jpg";
+		String originPath = "./img/1.jpg";
 		String outputPath = "./img/test2.jpg";
 
 		File originFile = new File(originPath);
@@ -26,7 +26,10 @@ public class LinearDetectTest {
 		BufferedImage originImg;
 		originImg = ImageIO.read(originFile);
 		
+		//System.out.println(System.getProperty("java.library.path"));
 		FaceDetector fd = new FaceDetector(originImg);
+		System.out.println(fd);
+		fd.findFacePoints();
 		List<int[]> fdList = fd.getFacePosition();
 		for (int[] is : fdList) {
 			System.out.println(is.toString());

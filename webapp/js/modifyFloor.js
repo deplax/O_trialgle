@@ -109,6 +109,16 @@ CanvasDrawer.prototype.getPixel = function(x, y){
 };
 
 CanvasDrawer.prototype.triangleAvgColor = function(triangle){
+
+	// var p1 = this.getPixel(triangle.v0.x, triangle.v0.y);
+	// var p2 = this.getPixel(triangle.v1.x, triangle.v1.y);
+	// var p3 = this.getPixel(triangle.v2.x, triangle.v2.y);
+	// this.pixels.push(p1);
+	// this.pixels.push(p2);
+	// this.pixels.push(p3);
+
+	////////////////////////////////////////////
+
 	var objectArr = [];
 	var v0 = {
 		"x" : this.calcPointX(triangle.v0.x),

@@ -19,12 +19,14 @@ import triangle.Drawer;
 import triangle.Point;
 import triangle.PointGenerator;
 import triangle.PointRemover;
+import triangle.faceDetection.FaceDetector;
 import triangle.mvc.model.Canvas;
 
 @Controller
 public class ModifyController {
 
-	private static final Logger log = LoggerFactory.getLogger(ModifyController.class);
+	private static final Logger log = LoggerFactory
+			.getLogger(ModifyController.class);
 
 	@Autowired
 	private ServletContext servletContext;
@@ -62,16 +64,16 @@ public class ModifyController {
 		int w = bi.getWidth();
 		int h = bi.getHeight();
 		// divide 제곱으로 적어야한다.
-		PointGenerator pg = new PointGenerator(w, h, 800, 20);
+		PointGenerator pg = new PointGenerator(w, h, 2000, 20);
 
-		// // 얼굴 위치를 디텍트 한다.
-		// FaceDetector f = new FaceDetector(bi);
-		// f.findFacePoints();
-		// List<int[]> faceList = f.getFacePosition();
-		// // 얼굴 위치에 포인트를 찍는다.
-		// for (int[] face : faceList) {
-		// pg.generateCircleArea(face[0], face[1], face[2], 50);
-		// }
+//		// 얼굴 위치를 디텍트 한다.
+//		FaceDetector f = new FaceDetector(bi);
+//		f.findFacePoints();
+//		List<int[]> faceList = f.getFacePosition();
+//		// 얼굴 위치에 포인트를 찍는다.
+//		for (int[] face : faceList) {
+//			pg.generateCircleArea(face[0], face[1], face[2], 50);
+//		}
 
 		// 그려보자.
 		Drawer drawer = new Drawer(edges);

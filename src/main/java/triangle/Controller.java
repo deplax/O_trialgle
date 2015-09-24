@@ -19,8 +19,8 @@ public class Controller {
 
 		Controller controllor = new Controller();
 
-		String originPath = "./img/004.jpg";
-		String outputPath = "./img/test2.jpg";
+		String originPath = "./img/A02.jpg";
+		String outputPath = "./img/sample04.jpg";
 
 		File originFile = new File(originPath);
 		File outputFile = new File(outputPath);
@@ -48,14 +48,14 @@ public class Controller {
 			PointGenerator pg = new PointGenerator(w, h, 800, 20);
 
 			// 얼굴 위치를 디텍트 한다.
-//			FaceDetector f = new FaceDetector(originPath);
-//			f.findFacePoints();
-//			List<int[]> faceList = f.getFacePosition();
-//			
-//			// 얼굴 위치에 포인트를 찍는다.
-//			for (int[] face : faceList) {
-//				pg.generateCircleArea(face[0], face[1], face[2], 50);
-//			}
+			FaceDetector f = new FaceDetector(originImg);
+			f.findFacePoints();
+			List<int[]> faceList = f.getFacePosition();
+			
+			// 얼굴 위치에 포인트를 찍는다.
+			for (int[] face : faceList) {
+				pg.generateCircleArea(face[0], face[1], face[2], 50);
+			}
 			
 			// 그려보자.
 			Drawer drawer = new Drawer(edges);
