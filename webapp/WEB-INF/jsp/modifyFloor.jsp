@@ -16,6 +16,8 @@
 			<div>
 				<canvas id="previewCanvas">
    		 		</canvas>
+   		 		<svg id="svg">
+				</svg>
    		 	</div>
    		 	<div>
 				<div>

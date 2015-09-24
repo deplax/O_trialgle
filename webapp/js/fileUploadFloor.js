@@ -204,6 +204,7 @@ function CanvasDrawer(canvasName) {
 };
 
 CanvasDrawer.prototype.init = function(canvasName) {
+	this.canvasName = canvasName;
     this.canvas = $(canvasName);
     this.ctx = this.canvas[0].getContext("2d");
     this.setCanvasSize();
@@ -263,8 +264,20 @@ CanvasDrawer.prototype.resize = function() {
     this.canvas.attr("height", height);
     this.canvas.attr("width", width);
 
+    this.width = width;
+    this.height = height;
+
     this.ctx.drawImage(this.image, 0, 0, width, height);
     this.imageString = this.canvas[0].toDataURL("image/jpeg");
+
+    localStorage.setItem("previewString", this.imageString);
+    localStorage.setItem("previewWidth", width);
+    localStorage.setItem("previewHeight", height);
+
+    if(this.canvasName === "#hiddenCanvas"){
+    	localStorage.setItem("hiddenWidth", width);
+    	localStorage.setItem("hiddenHeight", height);
+    }
 }
 
 $(".upload").click(function() {
