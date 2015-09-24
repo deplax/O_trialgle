@@ -21,7 +21,7 @@ public class FaceDetector {
 	// private static final String HAAR_DIR =
 	// "C:/Program Files/opencv/build/etc/haarcascades/";
 
-	private static final String FACE = "haarcascade_frontalface_alt2.xml";
+	private static final String FACE = "haarcascade_frontalface_alt.xml";
 	private static final String LEFT_EYE = "haarcascade_mcs_lefteye.xml";
 	private static final String RIGHT_EYE = "haarcascade_mcs_righteye.xml";
 	private static final String NOSE = "haarcascade_mcs_nose.xml";
@@ -65,7 +65,7 @@ public class FaceDetector {
 	}
 
 	public void findPoint(String pos) {
-		CascadeClassifier faceDetector = new CascadeClassifier(HAAR_DIR + pos);
+		CascadeClassifier faceDetector = new CascadeClassifier(HAAR_DIR + FACE);
 		MatOfRect detections = new MatOfRect();
 		faceDetector.detectMultiScale(image, detections);
 		System.out.println(String.format("Detected %s",

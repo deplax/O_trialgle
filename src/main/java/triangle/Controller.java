@@ -19,8 +19,8 @@ public class Controller {
 
 		Controller controllor = new Controller();
 
-		String originPath = "./img/A02.jpg";
-		String outputPath = "./img/sample04.jpg";
+		String originPath = "./img/A04.jpg";
+		String outputPath = "./img/sample05.jpg";
 
 		File originFile = new File(originPath);
 		File outputFile = new File(outputPath);
@@ -35,8 +35,8 @@ public class Controller {
 			// create the detector
 			CannyEdgeDetector detector = new CannyEdgeDetector();
 			// adjust its parameters as desired
-			detector.setLowThreshold(1.3f);
-			detector.setHighThreshold(2f);
+			detector.setLowThreshold(5f);
+			detector.setHighThreshold(8f);
 			detector.setSourceImage(originImg);
 			detector.process();
 			BufferedImage edges = detector.getEdgesImage();
@@ -45,16 +45,18 @@ public class Controller {
 			int w = originImg.getWidth();
 			int h = originImg.getHeight();
 			// divide 제곱으로 적어야한다.
-			PointGenerator pg = new PointGenerator(w, h, 800, 20);
+			PointGenerator pg = new PointGenerator(w, h, 4000, 20);
 
 			// 얼굴 위치를 디텍트 한다.
 			FaceDetector f = new FaceDetector(originImg);
-			f.findFacePoints();
+			
+			//f.findFacePoints();
+			f.findPoint(originPath);
 			List<int[]> faceList = f.getFacePosition();
 			
 			// 얼굴 위치에 포인트를 찍는다.
 			for (int[] face : faceList) {
-				pg.generateCircleArea(face[0], face[1], face[2], 50);
+				pg.generateCircleArea(face[0], face[1], face[2], 200);
 			}
 			
 			// 그려보자.
