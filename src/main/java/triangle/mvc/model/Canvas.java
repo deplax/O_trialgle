@@ -3,6 +3,8 @@ package triangle.mvc.model;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import triangle.Point;
 
 public class Canvas {
@@ -10,12 +12,21 @@ public class Canvas {
 	private String preview;
 	private List<Point> pointList;
 	private String imgURL;
+	private ObjectId userId;
 
 	// *** image processing parameter ***
 	// sampling value
 	// edge LowFilter
 	// edge HighFilter
 	// imageDetect value
+
+	public ObjectId getUserId() {
+		return userId;
+	}
+
+	public void setUserId(ObjectId userId) {
+		this.userId = userId;
+	}
 
 	public String getPreview() {
 		return preview;
@@ -48,4 +59,9 @@ public class Canvas {
 	public void setImgURL(String imgURL) {
 		this.imgURL = imgURL;
 	}
+
+	@Override
+	public String toString() {
+		return "Canvas [pointList=" + pointList + ", userId=" + userId + "]";
+	}	
 }

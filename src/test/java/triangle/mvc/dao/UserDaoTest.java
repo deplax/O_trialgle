@@ -48,7 +48,7 @@ public class UserDaoTest {
 
 	@Test
 	public void insert() throws Exception {
-		User user = new User("kuku", "dodo");
+		User user = new User("dodo", "kuku");
 		mongoTemplate.insert(user, COLLECTION_NAME);
 	}
 

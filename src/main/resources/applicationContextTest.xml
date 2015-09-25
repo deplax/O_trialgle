@@ -53,6 +53,7 @@
 	<mongo:mongo id="mongo" host="125.209.196.156" port="27017" />
 	
 	<bean id="userDao" class="triangle.mvc.dao.UserDao" />
+	<bean id="canvasDao" class="triangle.mvc.dao.CanvasDao" />
 	
 
 </beans>

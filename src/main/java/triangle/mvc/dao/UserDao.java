@@ -41,4 +41,11 @@ public class UserDao {
 			return true;
 		return false;
 	}
+	
+	public User getUser(String email){
+		Query query = new Query(new Criteria("email").is(email));
+		User matchUser = mongoTemplate.findOne(query, User.class, COLLECTION_NAME);
+		log.debug(matchUser.get_id().toString());
+		return matchUser;
+	}
 }
