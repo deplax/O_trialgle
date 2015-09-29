@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import triangle.faceDetection.FaceDetector;
+//import triangle.faceDetection.FaceDetector;
 
 public class Controller {
 
@@ -47,17 +47,17 @@ public class Controller {
 			// divide 제곱으로 적어야한다.
 			PointGenerator pg = new PointGenerator(w, h, 4000, 20);
 
-			// 얼굴 위치를 디텍트 한다.
-			FaceDetector f = new FaceDetector(originImg);
-			
-			//f.findFacePoints();
-			f.findPoint(originPath);
-			List<int[]> faceList = f.getFacePosition();
-			
-			// 얼굴 위치에 포인트를 찍는다.
-			for (int[] face : faceList) {
-				pg.generateCircleArea(face[0], face[1], face[2], 200);
-			}
+//			// 얼굴 위치를 디텍트 한다.
+//			FaceDetector f = new FaceDetector(originImg);
+//			
+//			//f.findFacePoints();
+//			f.findPoint(originPath);
+//			List<int[]> faceList = f.getFacePosition();
+//			
+//			// 얼굴 위치에 포인트를 찍는다.
+//			for (int[] face : faceList) {
+//				pg.generateCircleArea(face[0], face[1], face[2], 200);
+//			}
 			
 			// 그려보자.
 			Drawer drawer = new Drawer(edges);

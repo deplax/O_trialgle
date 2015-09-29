@@ -19,7 +19,6 @@ import triangle.Drawer;
 import triangle.Point;
 import triangle.PointGenerator;
 import triangle.PointRemover;
-import triangle.faceDetection.FaceDetector;
 import triangle.mvc.model.Canvas;
 
 @Controller
