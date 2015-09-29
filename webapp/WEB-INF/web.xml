@@ -99,7 +99,7 @@
 	<!-- welcome file list -->
 	<!-- ============================================================= -->
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
+		<welcome-file>/WEB-INF/jsp/frontFloor.jsp</welcome-file>
 	</welcome-file-list>
 
 
