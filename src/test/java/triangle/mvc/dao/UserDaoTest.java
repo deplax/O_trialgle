@@ -47,21 +47,6 @@ public class UserDaoTest {
 	}
 
 	@Test
-	public void insert() throws Exception {
-		User user = new User("dodo", "kuku");
-		mongoTemplate.insert(user, COLLECTION_NAME);
-	}
-
-	@Test
-	public void insertString() throws Exception {
-		User user = new User("asdf", "ffff");
-		mongoTemplate.insert(user, COLLECTION_NAME);
-
-		// 이렇게만 하면 user collection에 user object가 들어간다.
-		mongoTemplate.insert(user);
-	}
-
-	@Test
 	public void getUser() throws Exception {
 		User user = new User("kuku", "dodo");
 		Query query = new Query(new Criteria("email").is(user.getEmail()));
