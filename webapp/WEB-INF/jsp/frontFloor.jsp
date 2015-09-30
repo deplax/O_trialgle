@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class="floorLabelBox">
-		<span>11F</span>
+		<span>1F</span>
 	</div>
 	<div class="wrapper">
 	<div class="contentsArea">
